@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<canvas id="mycanvas" width="1000" height="800" style=" background: black ; border: 1px solid black "></canvas>
+<script>
+    // let size = Math.floor(Math.random() * 20);
+    let Rain = function (x, y) {
+        this.x = x;
+        this.y = y;
+        this.leng = 20;
+
+        this.draw = function () {
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.x, this.y + this.leng);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+        };
+        this.move = function () {
+            this.y += 10;
+        }
+
+    };
+    // let dy = 5;
+    // let dx = 5;
+    let canvas = document.getElementById("mycanvas");
+    let ctx = canvas.getContext("2d");
+
+    let rains = [];
+
+    function drawRain() {
+
+        for (let i = 0; i < rains.length; i++) {
+            rains[i].draw();
+        }
+
+    }
+
+    function manyRain() {
+        let rainX = Math.floor(Math.random() * 1000);
+        let rain = new Rain(rainX, 0);
+        rains.push(rain);
+
+    }
+
+    function moveRain() {
+        for (let i = 0; i < rains.length; i++) {
+            rains[i].move();
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        manyRain();
+        moveRain();
+        drawRain();
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+</script>
+</body>
+</html>
